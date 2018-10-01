@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_popular"
+            android:icon="@drawable/number1"
+            android:title="Popular"
+            android:checked="true"/>
+        <item
+            android:id="@+id/nav_second_top_rated"
+            android:icon="@drawable/number2"
+            android:title="Top rated" />
+        <item
+            android:id="@+id/nav_third_latest"
+            android:icon="@drawable/number3"
+            android:title="Latest" />
+        <item
+            android:id="@+id/nav_fourth_credits"
+            android:icon="@drawable/copyright"
+            android:title="Credits" />
+    </group>
+
+
+</menu>
