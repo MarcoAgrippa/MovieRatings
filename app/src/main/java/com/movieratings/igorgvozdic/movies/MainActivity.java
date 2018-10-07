@@ -2,6 +2,8 @@ package com.movieratings.igorgvozdic.movies;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,8 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.movieratings.igorgvozdic.movies.model.TestFragment;
+
 public class MainActivity extends AppCompatActivity
                           implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
+
+    public static final String  BASE_URL = "http://api.themoviedb.org/3/movie/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -72,7 +82,13 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             // Handle the camera action
             case R.id.nav_first_popular:
-                break;
+                TestFragment fragment = new TestFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.commit();
+
             case R.id.nav_second_top_rated:
                 break;
             case R.id.nav_third_latest:
@@ -85,4 +101,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

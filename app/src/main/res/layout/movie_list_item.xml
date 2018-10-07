@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id='@+id/parent_layout'
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <ImageView
+        android:id="@+id/imgMoviePoster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"/>
+
+
+    <TextView
+        android:id="@+id/txtAverageScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imgMoviePoster"
+        android:layout_alignLeft="@id/imgMoviePoster"
+        android:layout_alignRight="@id/imgMoviePoster"
+        android:layout_alignTop="@id/imgMoviePoster"
+        android:textColor="#ffffff"
+        android:backgroundTint="@color/design_default_color_primary"/>
+
+
+</RelativeLayout>
