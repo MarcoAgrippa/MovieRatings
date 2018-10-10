@@ -17,14 +17,12 @@
 
     <TextView
         android:id="@+id/txtAverageScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imgMoviePoster"
-        android:layout_alignLeft="@id/imgMoviePoster"
-        android:layout_alignRight="@id/imgMoviePoster"
-        android:layout_alignTop="@id/imgMoviePoster"
-        android:textColor="#ffffff"
-        android:backgroundTint="@color/design_default_color_primary"/>
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:background="@drawable/text_view_circle"/>
 
 
 </RelativeLayout>

@@ -12,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.movieratings.igorgvozdic.movies.model.TestFragment;
+import com.movieratings.igorgvozdic.movies.fragments.CreditsFragment;
+import com.movieratings.igorgvozdic.movies.fragments.PopularFragment;
+import com.movieratings.igorgvozdic.movies.fragments.StartUpFragment;
+import com.movieratings.igorgvozdic.movies.fragments.TopRatedFragment;
+import com.movieratings.igorgvozdic.movies.fragments.UpcomingFragment;
 
 public class MainActivity extends AppCompatActivity
                           implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
 
     public static final String  BASE_URL = "http://api.themoviedb.org/3/movie/";
+    private Toolbar toolbar;
 
 
     @Override
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -38,6 +43,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        StartUpFragment startUpFragment = new StartUpFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_container, startUpFragment);
+        transaction.commit();
 
     }
 
@@ -82,18 +93,39 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             // Handle the camera action
             case R.id.nav_first_popular:
-                TestFragment fragment = new TestFragment();
+                PopularFragment fragment = new PopularFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-
                 transaction.replace(R.id.fragment_container, fragment);
+                toolbar.setTitle("Popular Movies");
                 transaction.commit();
+                break;
 
             case R.id.nav_second_top_rated:
+                TopRatedFragment topRatedFragment = new TopRatedFragment();
+                fragmentManager = getSupportFragmentManager();
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_container, topRatedFragment);
+                toolbar.setTitle("Top rated Movies");
+                transaction.commit();
                 break;
-            case R.id.nav_third_latest:
+
+            case R.id.nav_third_upcoming:
+                UpcomingFragment upcomingFragment = new UpcomingFragment();
+                fragmentManager = getSupportFragmentManager();
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_container, upcomingFragment);
+                toolbar.setTitle("Upcoming Movies");
+                transaction.commit();
                 break;
+
             case R.id.nav_fourth_credits:
+                CreditsFragment creditsFragment = new CreditsFragment();
+                fragmentManager = getSupportFragmentManager();
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_container, creditsFragment);
+                toolbar.setTitle("Credits");
+                transaction.commit();
                 break;
         }
 

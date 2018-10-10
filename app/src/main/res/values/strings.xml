@@ -8,6 +8,6 @@
     <string name="action_settings">Settings</string>
     <string name="email">igorgvozdic@gmail.com</string>
     <string name="github">https://github.com/MarcoAgrippa</string>
-
+    <string name="bio"><![CDATA[My name is Igor Gvozdić and I am Android & Java EE developer. If you like this app you can check out my Github account or LinkedIn profile. ]]></string>
 
 </resources>

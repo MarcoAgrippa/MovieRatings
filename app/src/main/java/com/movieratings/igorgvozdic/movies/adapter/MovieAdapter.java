@@ -1,4 +1,4 @@
-package com.movieratings.igorgvozdic.movies;
+package com.movieratings.igorgvozdic.movies.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,15 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.movieratings.igorgvozdic.movies.R;
 import com.movieratings.igorgvozdic.movies.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class TestAdapter extends ArrayAdapter<Movie>{
+public class MovieAdapter extends ArrayAdapter<Movie>{
 
 
-    public TestAdapter(@NonNull Context context, @NonNull ArrayList<Movie> movies) {
+    public MovieAdapter(@NonNull Context context, @NonNull ArrayList<Movie> movies) {
         super(context, R.layout.movie_list_item,movies);
     }
 
