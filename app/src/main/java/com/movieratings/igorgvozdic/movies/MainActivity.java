@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.movieratings.igorgvozdic.movies.fragments.CreditsFragment;
 import com.movieratings.igorgvozdic.movies.fragments.PopularFragment;
@@ -27,13 +28,19 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.back_arrow);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,9 +65,18 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int fragments = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragments == 1) {
+                finish();
+            } else {
+                if (getFragmentManager().getBackStackEntryCount() > 1) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    super.onBackPressed();
+                }
+            }
         }
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,6 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "Coming soon...", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -97,6 +114,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_container, fragment);
+                transaction.addToBackStack(null);
                 toolbar.setTitle("Popular Movies");
                 transaction.commit();
                 break;
@@ -106,6 +124,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager = getSupportFragmentManager();
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_container, topRatedFragment);
+                transaction.addToBackStack(null);
                 toolbar.setTitle("Top rated Movies");
                 transaction.commit();
                 break;
@@ -115,6 +134,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager = getSupportFragmentManager();
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_container, upcomingFragment);
+                transaction.addToBackStack(null);
                 toolbar.setTitle("Upcoming Movies");
                 transaction.commit();
                 break;
@@ -123,7 +143,8 @@ public class MainActivity extends AppCompatActivity
                 CreditsFragment creditsFragment = new CreditsFragment();
                 fragmentManager = getSupportFragmentManager();
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, creditsFragment);
+                transaction.replace(R.id.fragment_container, creditsFragment).addToBackStack(null);
+                transaction.addToBackStack(null);
                 toolbar.setTitle("Credits");
                 transaction.commit();
                 break;

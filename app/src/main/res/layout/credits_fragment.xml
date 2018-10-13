@@ -7,11 +7,11 @@
     android:background="@drawable/side_nav_bar">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:id="@+id/profilePic"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/profile_croped"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,32 +19,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtHi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="Hi!"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/hi"
         android:textColor="#FFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txtBio"
         android:layout_width="wrap_content"
-        android:layout_height="97dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
+        android:paddingStart="12dp"
+        android:paddingLeft="12dp"
+        android:paddingEnd="12dp"
+        android:paddingRight="12dp"
         android:text="@string/bio"
         android:textColor="#FFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHi" />
 
     <ImageView
         android:id="@+id/img_github_logo"
@@ -54,21 +58,22 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/github_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWebPage"
+        android:contentDescription="@string/git_hub_logo_description"/>
 
     <TextView
         android:id="@+id/github_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:text="GitHub"
+        android:text="@string/github"
         android:textColor="#FFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_github_logo"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWebPage" />
 
     <ImageView
         android:id="@+id/img_linkedin_logo"
@@ -78,21 +83,22 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/linkedin_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_github_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/img_github_logo"
+        android:contentDescription="@string/linked_in_logo_description"/>
 
     <TextView
         android:id="@+id/txt_linkedin_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
-        android:text="LinkedIn"
+        android:text="@string/linkedin"
         android:textColor="#FFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_linkedin_logo"
-        app:layout_constraintTop_toBottomOf="@+id/github_account" />
+        app:layout_constraintTop_toBottomOf="@+id/img_github_logo" />
 
     <ImageView
         android:id="@+id/img_gmail_logo"
@@ -102,20 +108,49 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/gmail_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_linkedin_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/img_linkedin_logo"
+        android:contentDescription="@string/g_mail_logo_description"/>
 
     <TextView
         android:id="@+id/txt_gmail_logo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
-        android:text="Gmail"
+        android:text="@string/gmail"
         android:textColor="#FFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_gmail_logo"
-        app:layout_constraintTop_toBottomOf="@+id/txt_linkedin_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/img_linkedin_logo" />
+
+    <TextView
+        android:id="@+id/txtWebPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/igor_gvozdic_web_page"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtWww"
+        app:layout_constraintTop_toBottomOf="@+id/txtBio"
+        tools:text="igorgvozdic.com" />
+
+    <TextView
+        android:id="@+id/txtWww"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/www"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtWebPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtBio"
+        tools:text="www." />
 
 </android.support.constraint.ConstraintLayout>

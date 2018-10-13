@@ -62,8 +62,11 @@ public class TopRatedFragment  extends Fragment {
                 }
 
                 gridView = (GridView) myView.findViewById(R.id.top_rated_gridview);
-                MovieAdapter adapter = new MovieAdapter(getActivity(), topRatedMovies);
-                gridView.setAdapter(adapter);
+                if (getActivity() != null){
+                    MovieAdapter adapter = new MovieAdapter(getActivity(), topRatedMovies);
+                    gridView.setAdapter(adapter);
+                }
+
 
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -85,7 +88,7 @@ public class TopRatedFragment  extends Fragment {
 
                         detailsFragment.setArguments(bundle);
                         FragmentManager manager = getFragmentManager();
-                        manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).commit();
+                        manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
 
                     }
                 });

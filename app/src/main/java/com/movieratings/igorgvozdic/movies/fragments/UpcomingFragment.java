@@ -36,6 +36,7 @@ public class UpcomingFragment extends Fragment {
 
     private GridView gridView;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,8 +63,10 @@ public class UpcomingFragment extends Fragment {
                 }
 
                 gridView = (GridView) myView.findViewById(R.id.upcoming_gridview);
-                MovieAdapter adapter = new MovieAdapter(getActivity(), upcomingMovies);
-                gridView.setAdapter(adapter);
+                if (getActivity() != null){
+                    MovieAdapter adapter = new MovieAdapter(getActivity(), upcomingMovies);
+                    gridView.setAdapter(adapter);
+                }
 
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -85,7 +88,7 @@ public class UpcomingFragment extends Fragment {
 
                         detailsFragment.setArguments(bundle);
                         FragmentManager manager = getFragmentManager();
-                        manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).commit();
+                        manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
 
                     }
                 });
@@ -100,5 +103,7 @@ public class UpcomingFragment extends Fragment {
         });
         return myView;
     }
+
+
 
 }
