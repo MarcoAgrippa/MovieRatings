@@ -95,6 +95,7 @@ public class PopularFragment extends Fragment {
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
 
+
                     }
                 });
 

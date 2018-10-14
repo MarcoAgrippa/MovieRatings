@@ -24,10 +24,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
-    public static final String  BASE_URL = "http://api.themoviedb.org/3/movie/";
     private Toolbar toolbar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

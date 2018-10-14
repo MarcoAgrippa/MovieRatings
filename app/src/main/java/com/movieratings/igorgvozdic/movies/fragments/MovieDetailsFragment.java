@@ -11,13 +11,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hsalf.smilerating.BaseRating;
+import com.hsalf.smilerating.SmileRating;
 import com.movieratings.igorgvozdic.movies.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MovieDetailsFragment extends Fragment {
+
+    SmileRating smileRating;
 
     @Nullable
     @Override
@@ -26,16 +34,6 @@ public class MovieDetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.movie_details_fragment, container, false);
 
-//        bundle.putInt("vote_count", movie.getVoteCount());
-//        bundle.putInt("id", movie.getId());
-//        bundle.putDouble("vote_average", movie.getVoteAverage());
-//        bundle.putString("title", movie.getTitle());
-//        bundle.putDouble("popularity", movie.getPopularity());
-//        bundle.putString("poster_path", movie.getPosterPath());
-//        bundle.putString("language", movie.getLanguage());
-//        bundle.putBoolean("adult", movie.isAdult());
-//        bundle.putString("overview", movie.getOverview());
-//        bundle.putString("release_date", movie.getReleaseDate());
         ImageView posterView = view.findViewById(R.id.imgPoster);
         TextView titleTxt = view.findViewById(R.id.txtTitle);
         TextView voteCountTxt = view.findViewById(R.id.txtVoteCount);
@@ -44,6 +42,8 @@ public class MovieDetailsFragment extends Fragment {
         TextView adultTxt = view.findViewById(R.id.txtAdults);
         TextView releaseDateTxt = view.findViewById(R.id.txtReleaseDate);
         TextView overviewTxt = view.findViewById(R.id.txtOverview);
+
+        smileRating = view.findViewById(R.id.smile_rating);
 
         Bundle bundle = getArguments();
 
@@ -62,6 +62,7 @@ public class MovieDetailsFragment extends Fragment {
 
             double voteAverage = bundle.getDouble("vote_average");
             voteAverageTxt.setText(String.valueOf(voteAverage));
+            setSmileyValue(voteAverage);
 
             String languageShort = bundle.getString("language");
             String language = getFullLanguageName(languageShort);
@@ -72,7 +73,8 @@ public class MovieDetailsFragment extends Fragment {
             adultTxt.setText(adultOrNot);
 
             String releaseDate = bundle.getString("release_date");
-            releaseDateTxt.setText(releaseDate);
+            String reformatedDate = reformatDate(releaseDate);
+            releaseDateTxt.setText(reformatedDate);
 
             final String overview = bundle.getString("overview");
             overviewTxt.setText(overview);
@@ -130,4 +132,37 @@ public class MovieDetailsFragment extends Fragment {
         }
         return "Language unknown";
     }
+
+    private String reformatDate(String dateToReformat){
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputFormat = new SimpleDateFormat("dd. MMM yyyy");
+        Date date = null;
+        try {
+            date = inputFormat.parse(dateToReformat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  outputFormat.format(date);
+    }
+
+    private void setSmileyValue(double voteAverage){
+
+        if (voteAverage > 8.0){
+            smileRating.setSelectedSmile(BaseRating.GREAT);
+        }
+        if (voteAverage <= 8.0 && voteAverage > 7.0){
+            smileRating.setSelectedSmile(BaseRating.GOOD);
+        }
+        if (voteAverage <= 7.0 && voteAverage > 6.0){
+            smileRating.setSelectedSmile(BaseRating.OKAY);
+        }
+        if (voteAverage <= 6.0 && voteAverage > 5.0){
+            smileRating.setSelectedSmile(BaseRating.BAD);
+        }
+        if (voteAverage <= 5){
+            smileRating.setSelectedSmile(BaseRating.TERRIBLE);
+        }
+    }
+
+
 }
