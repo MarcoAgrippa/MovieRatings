@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.movieratings.igorgvozdic.movies.Api;
 import com.movieratings.igorgvozdic.movies.R;
@@ -34,13 +33,15 @@ public class TopRatedFragment  extends Fragment {
 
     private ArrayList<Movie> topRatedMovies = new ArrayList<>();
 
-    private GridView gridView;
+    private GridLayoutManager gridLayoutManager;
+
+    private RecyclerView recyclerView;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.top_rated, container, false);
+        myView = inflater.inflate(R.layout.mov_recyclerview, container, false);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -57,42 +58,13 @@ public class TopRatedFragment  extends Fragment {
 
                 topRatedMovies = response.body().getMovie();
 
-                for (Movie m : topRatedMovies){
-                    Log.i(TAG, "Movie title: " + m.toString());
-                }
+                recyclerView = myView.findViewById(R.id.mov_recycler_view);
+                gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                recyclerView.setHasFixedSize(false);
+                recyclerView.setLayoutManager(gridLayoutManager);
 
-                gridView = (GridView) myView.findViewById(R.id.top_rated_gridview);
-                if (getActivity() != null){
-                    MovieAdapter adapter = new MovieAdapter(getActivity(), topRatedMovies);
-                    gridView.setAdapter(adapter);
-                }
-
-
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        Movie movie = topRatedMovies.get(position);
-                        MovieDetailsFragment detailsFragment = new MovieDetailsFragment();
-
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("vote_count", movie.getVoteCount());
-                        bundle.putInt("id", movie.getId());
-                        bundle.putDouble("vote_average", movie.getVoteAverage());
-                        bundle.putString("title", movie.getTitle());
-                        bundle.putDouble("popularity", movie.getPopularity());
-                        bundle.putString("poster_path", movie.getPosterPath());
-                        bundle.putString("language", movie.getLanguage());
-                        bundle.putBoolean("adult", movie.isAdult());
-                        bundle.putString("overview", movie.getOverview());
-                        bundle.putString("release_date", movie.getReleaseDate());
-
-                        detailsFragment.setArguments(bundle);
-                        FragmentManager manager = getFragmentManager();
-                        manager.beginTransaction().replace(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
-
-                    }
-                });
-
+                MovieAdapter movieAdapter = new MovieAdapter(getContext(), topRatedMovies);
+                recyclerView.setAdapter(movieAdapter);
             }
 
             @Override

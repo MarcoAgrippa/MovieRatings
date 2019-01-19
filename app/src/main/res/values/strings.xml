@@ -19,5 +19,7 @@
     <string name="igor_gvozdic_web_page">igorgvozdic.com</string>
     <string name="www">www.</string>
     <string name="movie_ratings">Movie Ratings</string>
+    <string name="sort_by_name">Sort by Name</string>
+    <string name="sort_by_average_score">Sort by Average Score</string>
 
 </resources>

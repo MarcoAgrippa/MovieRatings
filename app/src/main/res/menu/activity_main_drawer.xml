@@ -18,12 +18,16 @@
             android:id="@+id/nav_third_upcoming"
             android:icon="@drawable/number3"
             android:title="Upcoming" />
+        <item
+            android:id="@+id/nav_fourth_favorites"
+            android:icon="@drawable/number4"
+            android:title="Favorite movies" />
     </group>
 
     <group  android:checkableBehavior="single"
             android:id="@+id/nav_bottom">
         <item
-            android:id="@+id/nav_fourth_credits"
+            android:id="@+id/nav_fifth_credits"
             android:icon="@drawable/copyright"
             android:title="Credits" />
 

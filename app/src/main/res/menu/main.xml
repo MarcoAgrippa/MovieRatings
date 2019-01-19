@@ -6,4 +6,14 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/sort_by_name"
+        android:orderInCategory="100"
+        android:title="@string/sort_by_name"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/sort_by_average_score"
+        android:orderInCategory="100"
+        android:title="@string/sort_by_average_score"
+        app:showAsAction="never" />
 </menu>

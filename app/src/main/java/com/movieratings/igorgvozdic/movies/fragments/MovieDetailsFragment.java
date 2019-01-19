@@ -1,5 +1,8 @@
 package com.movieratings.igorgvozdic.movies.fragments;
 
+import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,12 +11,17 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hsalf.smilerating.BaseRating;
 import com.hsalf.smilerating.SmileRating;
 import com.movieratings.igorgvozdic.movies.R;
+import com.movieratings.igorgvozdic.movies.database.FavoriteMovie;
+import com.movieratings.igorgvozdic.movies.database.FavoriteMovieViewModel;
+import com.movieratings.igorgvozdic.movies.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -26,6 +34,7 @@ import java.util.Map;
 public class MovieDetailsFragment extends Fragment {
 
     SmileRating smileRating;
+    FavoriteMovieViewModel viewModel;
 
     @Nullable
     @Override
@@ -42,10 +51,11 @@ public class MovieDetailsFragment extends Fragment {
         TextView adultTxt = view.findViewById(R.id.txtAdults);
         TextView releaseDateTxt = view.findViewById(R.id.txtReleaseDate);
         TextView overviewTxt = view.findViewById(R.id.txtOverview);
+        Button btnAddToFavorites = view.findViewById(R.id.btnAddToFavorites);
 
         smileRating = view.findViewById(R.id.smile_rating);
 
-        Bundle bundle = getArguments();
+        final Bundle bundle = getArguments();
 
         if (bundle != null){
             if (bundle.getString("poster_path") != null){
@@ -57,28 +67,61 @@ public class MovieDetailsFragment extends Fragment {
                 titleTxt.setText(title);
             }
 
-            int voteCount = bundle.getInt("vote_count");
+            final int voteCount = bundle.getInt("vote_count");
             voteCountTxt.setText(String.valueOf(voteCount));
 
-            double voteAverage = bundle.getDouble("vote_average");
+            final double voteAverage = bundle.getDouble("vote_average");
             voteAverageTxt.setText(String.valueOf(voteAverage));
             setSmileyValue(voteAverage);
 
             String languageShort = bundle.getString("language");
-            String language = getFullLanguageName(languageShort);
+            final String language = getFullLanguageName(languageShort);
             languageTxt.setText(language);
 
-            boolean adult = bundle.getBoolean("adult");
-            String adultOrNot = adultOrNot(adult);
+            final boolean adult = bundle.getBoolean("adult");
+            final String adultOrNot = adultOrNot(adult);
             adultTxt.setText(adultOrNot);
 
-            String releaseDate = bundle.getString("release_date");
+            final String releaseDate = bundle.getString("release_date");
             String reformatedDate = reformatDate(releaseDate);
             releaseDateTxt.setText(reformatedDate);
 
             final String overview = bundle.getString("overview");
             overviewTxt.setText(overview);
             overviewTxt.setMovementMethod(new ScrollingMovementMethod());
+
+            btnAddToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    final AlertDialog.Builder saveMovieDialog = new AlertDialog.Builder(getContext());
+                    saveMovieDialog.setMessage("Add this movie to the list of favorite movies?")
+                            .setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Movie movie = new Movie(voteCount, voteAverage, bundle.getString("title"), bundle.getDouble("popularity"), bundle.getString("poster_path"),
+                                    language, adult, overview, releaseDate);
+                            FavoriteMovie favoriteMovie = new FavoriteMovie(movie);
+
+
+                            viewModel = ViewModelProviders.of(getActivity()).get(FavoriteMovieViewModel.class);
+                            viewModel.insert(favoriteMovie);
+                            Toast.makeText(getContext(), "Saved to favorite movies", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+
+                    AlertDialog alertDialog = saveMovieDialog.create();
+                    alertDialog.setTitle("Save movie?");
+                    alertDialog.show();
+
+                }
+            });
 
         }
 

@@ -2,6 +2,7 @@ package com.movieratings.igorgvozdic.movies;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.movieratings.igorgvozdic.movies.fragments.CreditsFragment;
+import com.movieratings.igorgvozdic.movies.fragments.FavoriteMoviesFragment;
 import com.movieratings.igorgvozdic.movies.fragments.PopularFragment;
 import com.movieratings.igorgvozdic.movies.fragments.StartUpFragment;
 import com.movieratings.igorgvozdic.movies.fragments.TopRatedFragment;
@@ -24,13 +26,13 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
+
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back_arrow);
         setSupportActionBar(toolbar);
@@ -95,6 +97,14 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.sort_by_name) {
+            return true;
+        }
+
+        if (id == R.id.sort_by_average_score) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -107,43 +117,28 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             // Handle the camera action
             case R.id.nav_first_popular:
-                PopularFragment fragment = new PopularFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment);
-                transaction.addToBackStack(null);
-                toolbar.setTitle("Popular Movies");
-                transaction.commit();
+                PopularFragment popualarFragment = new PopularFragment();
+                loadFragment(popualarFragment, "Popular Movies");
                 break;
 
             case R.id.nav_second_top_rated:
                 TopRatedFragment topRatedFragment = new TopRatedFragment();
-                fragmentManager = getSupportFragmentManager();
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, topRatedFragment);
-                transaction.addToBackStack(null);
-                toolbar.setTitle("Top rated Movies");
-                transaction.commit();
+                loadFragment(topRatedFragment, "Top rated Movies");
                 break;
 
             case R.id.nav_third_upcoming:
                 UpcomingFragment upcomingFragment = new UpcomingFragment();
-                fragmentManager = getSupportFragmentManager();
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, upcomingFragment);
-                transaction.addToBackStack(null);
-                toolbar.setTitle("Upcoming Movies");
-                transaction.commit();
+                loadFragment(upcomingFragment, "Upcoming Movies");
                 break;
 
-            case R.id.nav_fourth_credits:
+            case R.id.nav_fourth_favorites:
+                FavoriteMoviesFragment favoriteFragment = new FavoriteMoviesFragment();
+                loadFragment(favoriteFragment, "Favorite Movies");
+                break;
+
+            case R.id.nav_fifth_credits:
                 CreditsFragment creditsFragment = new CreditsFragment();
-                fragmentManager = getSupportFragmentManager();
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, creditsFragment).addToBackStack(null);
-                transaction.addToBackStack(null);
-                toolbar.setTitle("Credits");
-                transaction.commit();
+                loadFragment(creditsFragment, "Credits");
                 break;
         }
 
@@ -151,5 +146,16 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void loadFragment(Fragment fragment, String toolbarTitle) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        toolbar.setTitle(toolbarTitle);
+        transaction.commit();
+    }
+
+
 
 }
