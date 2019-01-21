@@ -117,32 +117,32 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             // Handle the camera action
             case R.id.nav_first_popular:
-                PopularFragment popualarFragment = new PopularFragment();
-                loadFragment(popualarFragment, "Popular Movies");
+                PopularFragment popularFragment = new PopularFragment();
+                loadFragment(popularFragment, getString(R.string.popular_movies_toolbar));
                 break;
 
             case R.id.nav_second_top_rated:
                 TopRatedFragment topRatedFragment = new TopRatedFragment();
-                loadFragment(topRatedFragment, "Top rated Movies");
+                loadFragment(topRatedFragment, getString(R.string.top_rated_movie_toolbar));
                 break;
 
             case R.id.nav_third_upcoming:
                 UpcomingFragment upcomingFragment = new UpcomingFragment();
-                loadFragment(upcomingFragment, "Upcoming Movies");
+                loadFragment(upcomingFragment, getString(R.string.upcoming_movie_toolbar));
                 break;
 
             case R.id.nav_fourth_favorites:
                 FavoriteMoviesFragment favoriteFragment = new FavoriteMoviesFragment();
-                loadFragment(favoriteFragment, "Favorite Movies");
+                loadFragment(favoriteFragment, getString(R.string.favorite_movies_toolbar));
                 break;
 
             case R.id.nav_fifth_credits:
                 CreditsFragment creditsFragment = new CreditsFragment();
-                loadFragment(creditsFragment, "Credits");
+                loadFragment(creditsFragment, getString(R.string.credits));
                 break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

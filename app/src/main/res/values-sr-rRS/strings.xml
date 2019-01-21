@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Ratings</string>
+    <string name="navigation_drawer_open">Otvori fioku</string>
+    <string name="navigation_drawer_close">Zatvori fioku</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="bio">moje ime je Igor Gvozdić i ja sam Android i Java EE programer. Ukoliko želite da saznate više o meni ili želite da me kontaktirate, samo kliknite na neki od linkova ispod.</string>
+    <string name="hi">Zdravo!</string>
+    <string name="sort_by_name">Sortiraj po imenu</string>
+    <string name="sort_by_average_score">Sortiraj po prosečnoj oceni</string>
+    <string name="date_of_release">Datum objavljivanja</string>
+    <string name="average_vote">Prosečna ocena</string>
+    <string name="language">Jezik</string>
+    <string name="vote_count">Ukupno glasova</string>
+    <string name="adults_only">Samo za odrasle</string>
+    <string name="overview">Pregled</string>
+    <string name="movie_poster">Poster</string>
+    <string name="instruction1">Prevucite sa leva na desno da vidiš dostupne opcije</string>
+    <string name="welcome_message">Dobrodošli u Movie Ratings aplikaciju</string>
+    <string name="pointing_finger_to_left">Prst koji pokazuje na levo</string>
+    <string name="no">Ne</string>
+    <string name="save_to_favorites">Sačuvano u omiljenim filmovima</string>
+    <string name="save_movie_dialog">Sačuvaj film?</string>
+    <string name="add_movie_question">Dodaj ovaj film među omiljene?</string>
+    <string name="yes">Da</string>
+    <string name="action_settings">Podešavanja</string>
+    <string name="popular">Popularni</string>
+    <string name="top_rated">Najbolje ocenjeni</string>
+    <string name="favorite_movies">Omiljeni</string>
+    <string name="credits">O autoru</string>
+    <string name="upcoming">Uskoro...</string>
+    <string name="popular_movies_toolbar">Popularni filmovi</string>
+    <string name="top_rated_movie_toolbar">Najbolje ocenjeni filmovi</string>
+    <string name="upcoming_movie_toolbar">Uskoro u bioskopu</string>
+    <string name="favorite_movies_toolbar">Omiljeni filmovi</string>
+    <string name="credits_toolbar">O autoru...</string>
+</resources>

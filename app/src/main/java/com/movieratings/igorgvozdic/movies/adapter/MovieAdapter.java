@@ -18,13 +18,12 @@ import com.movieratings.igorgvozdic.movies.fragments.MovieDetailsFragment;
 import com.movieratings.igorgvozdic.movies.model.Movie;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private Context context;
-    private List<Movie> movies = new ArrayList<>();
+    private List<Movie> movies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -36,8 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent, false);
-        MovieViewHolder viewHolder = new MovieViewHolder(itemView);
-        return viewHolder;
+        return new MovieViewHolder(itemView);
     }
 
     @Override
@@ -86,7 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView txtAverageScore;
         RelativeLayout parentLayout;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        private MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPoster = itemView.findViewById(R.id.imgMoviePoster);
             txtAverageScore = itemView.findViewById(R.id.txtAverageScore);

@@ -8,20 +8,20 @@
         <item
             android:id="@+id/nav_first_popular"
             android:icon="@drawable/number1"
-            android:title="Popular"
+            android:title="@string/popular"
             android:checked="true"/>
         <item
             android:id="@+id/nav_second_top_rated"
             android:icon="@drawable/number2"
-            android:title="Top rated" />
+            android:title="@string/top_rated" />
         <item
             android:id="@+id/nav_third_upcoming"
             android:icon="@drawable/number3"
-            android:title="Upcoming" />
+            android:title="@string/upcoming" />
         <item
             android:id="@+id/nav_fourth_favorites"
             android:icon="@drawable/number4"
-            android:title="Favorite movies" />
+            android:title="@string/favorite_movies" />
     </group>
 
     <group  android:checkableBehavior="single"
@@ -29,7 +29,7 @@
         <item
             android:id="@+id/nav_fifth_credits"
             android:icon="@drawable/copyright"
-            android:title="Credits" />
+            android:title="@string/credits" />
 
     </group>
 

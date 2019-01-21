@@ -21,8 +21,7 @@ public interface FavoriteMovieDAO {
     @Query("DELETE FROM favorite_movie")
     void deleteAllFavoriteMovies();
 
-    // Dodati LiveData
-    @Query("SELECT * FROM favorite_movie ORDER BY popularity ASC")
+    @Query("SELECT * FROM favorite_movie ORDER BY vote_average DESC")
     LiveData<List<FavoriteMovie>> getAllFavoriteMoviesLiveData();
 
 

@@ -57,12 +57,12 @@ public class MovieDetailsFragment extends Fragment {
 
         final Bundle bundle = getArguments();
 
-        if (bundle != null){
-            if (bundle.getString("poster_path") != null){
+        if (bundle != null) {
+            if (bundle.getString("poster_path") != null) {
                 String imgUrl = bundle.getString("poster_path");
                 Picasso.get().load(imgUrl).into(posterView);
             }
-            if (bundle.getString("title") != null){
+            if (bundle.getString("title") != null) {
                 String title = bundle.getString("title");
                 titleTxt.setText(title);
             }
@@ -95,8 +95,8 @@ public class MovieDetailsFragment extends Fragment {
                 public void onClick(View view) {
 
                     final AlertDialog.Builder saveMovieDialog = new AlertDialog.Builder(getContext());
-                    saveMovieDialog.setMessage("Add this movie to the list of favorite movies?")
-                            .setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    saveMovieDialog.setMessage(R.string.add_movie_question)
+                            .setCancelable(true).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Movie movie = new Movie(voteCount, voteAverage, bundle.getString("title"), bundle.getDouble("popularity"), bundle.getString("poster_path"),
@@ -106,10 +106,10 @@ public class MovieDetailsFragment extends Fragment {
 
                             viewModel = ViewModelProviders.of(getActivity()).get(FavoriteMovieViewModel.class);
                             viewModel.insert(favoriteMovie);
-                            Toast.makeText(getContext(), "Saved to favorite movies", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), R.string.save_to_favorites, Toast.LENGTH_LONG).show();
                         }
                     })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
@@ -117,7 +117,7 @@ public class MovieDetailsFragment extends Fragment {
                             });
 
                     AlertDialog alertDialog = saveMovieDialog.create();
-                    alertDialog.setTitle("Save movie?");
+                    alertDialog.setTitle(getString(R.string.save_movie_dialog));
                     alertDialog.show();
 
                 }
@@ -125,14 +125,14 @@ public class MovieDetailsFragment extends Fragment {
 
         }
 
-       return view;
+        return view;
     }
 
-    private String adultOrNot(boolean yesOrNo){
+    private String adultOrNot(boolean yesOrNo) {
 
-        if (yesOrNo){
+        if (yesOrNo) {
             return "Yes";
-        }else {
+        } else {
             return "No";
         }
     }
@@ -176,7 +176,7 @@ public class MovieDetailsFragment extends Fragment {
         return "Language unknown";
     }
 
-    private String reformatDate(String dateToReformat){
+    private String reformatDate(String dateToReformat) {
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat outputFormat = new SimpleDateFormat("dd. MMM yyyy");
         Date date = null;
@@ -185,24 +185,24 @@ public class MovieDetailsFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return  outputFormat.format(date);
+        return outputFormat.format(date);
     }
 
-    private void setSmileyValue(double voteAverage){
+    private void setSmileyValue(double voteAverage) {
 
-        if (voteAverage > 8.0){
+        if (voteAverage > 8.0) {
             smileRating.setSelectedSmile(BaseRating.GREAT);
         }
-        if (voteAverage <= 8.0 && voteAverage > 7.0){
+        if (voteAverage <= 8.0 && voteAverage > 7.0) {
             smileRating.setSelectedSmile(BaseRating.GOOD);
         }
-        if (voteAverage <= 7.0 && voteAverage > 6.0){
+        if (voteAverage <= 7.0 && voteAverage > 6.0) {
             smileRating.setSelectedSmile(BaseRating.OKAY);
         }
-        if (voteAverage <= 6.0 && voteAverage > 5.0){
+        if (voteAverage <= 6.0 && voteAverage > 5.0) {
             smileRating.setSelectedSmile(BaseRating.BAD);
         }
-        if (voteAverage <= 5){
+        if (voteAverage <= 5) {
             smileRating.setSelectedSmile(BaseRating.TERRIBLE);
         }
     }

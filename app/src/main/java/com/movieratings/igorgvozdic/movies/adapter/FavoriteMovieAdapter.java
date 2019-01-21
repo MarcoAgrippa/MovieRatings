@@ -29,8 +29,7 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<FavoriteMovieAdap
     public FavoriteMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_movie_item, parent, false);
-        FavoriteMovieViewHolder viewHolder = new FavoriteMovieViewHolder(itemView);
-        return viewHolder;
+        return new FavoriteMovieViewHolder(itemView);
 
     }
 
@@ -72,7 +71,7 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<FavoriteMovieAdap
         private TextView txtFavoriteMovieTitle;
         private TextView txtFavoriteMovieAverageScore;
 
-        public FavoriteMovieViewHolder(@NonNull View itemView) {
+        private FavoriteMovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imgFavoriteMovie = itemView.findViewById(R.id.img_favorite_movie);
             txtFavoriteMovieTitle = itemView.findViewById(R.id.txt_favorite_movie_title);
