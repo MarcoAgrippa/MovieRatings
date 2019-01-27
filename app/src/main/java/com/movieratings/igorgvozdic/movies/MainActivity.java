@@ -111,11 +111,10 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         switch (id) {
-            // Handle the camera action
             case R.id.nav_first_popular:
                 PopularFragment popularFragment = new PopularFragment();
                 loadFragment(popularFragment, getString(R.string.popular_movies_toolbar));

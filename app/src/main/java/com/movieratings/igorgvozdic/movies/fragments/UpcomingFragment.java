@@ -13,23 +13,22 @@ import android.view.ViewGroup;
 
 import com.movieratings.igorgvozdic.movies.Api;
 import com.movieratings.igorgvozdic.movies.R;
+import com.movieratings.igorgvozdic.movies.RetrofitUtils;
 import com.movieratings.igorgvozdic.movies.adapter.MovieAdapter;
-import com.movieratings.igorgvozdic.movies.model.Feed;
+import com.movieratings.igorgvozdic.movies.model.FeedMovies;
 import com.movieratings.igorgvozdic.movies.model.Movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UpcomingFragment extends Fragment {
 
     private static final String TAG = "UpcomingFragment";
-
-    private View myView;
 
     private ArrayList<Movie> upcomingMovies = new ArrayList<>();
 
@@ -37,43 +36,109 @@ public class UpcomingFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
+    private MovieAdapter movieAdapter;
+
+    private int pageNumber = 1;
+
+    private boolean isLoading = true;
+    private int pastVisibleItems = 0;
+    private int visibleItemCount = 0;
+    private int totalItemCount = 0;
+    private int previousTotal = 0;
+    private int viewTreshold = 0;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.mov_recyclerview, container, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        View myView = inflater.inflate(R.layout.mov_recyclerview, container, false);
+
+        Retrofit retrofit = RetrofitUtils.getRetrofit();
 
         Api api = retrofit.create(Api.class);
 
-        Call<Feed> call = api.getMovies("upcoming");
+        Call<FeedMovies> call = api.getMovies(Api.UPCOMING, 1);
 
-        call.enqueue(new Callback<Feed>() {
+        recyclerView = myView.findViewById(R.id.mov_recycler_view);
+
+        call.enqueue(new Callback<FeedMovies>() {
             @Override
-            public void onResponse(Call<Feed> call, Response<Feed> response) {
+            public void onResponse(Call<FeedMovies> call, Response<FeedMovies> response) {
                 Log.d(TAG, "onResponse: Sucesfull");
 
-                upcomingMovies = response.body().getMovie();
+                upcomingMovies = response.body().getMovies();
 
-                recyclerView = myView.findViewById(R.id.mov_recycler_view);
                 gridLayoutManager = new GridLayoutManager(getContext(), 3);
                 recyclerView.setHasFixedSize(false);
                 recyclerView.setLayoutManager(gridLayoutManager);
 
-                MovieAdapter movieAdapter = new MovieAdapter(getContext(), upcomingMovies);
+                if (upcomingMovies != null) {
+                    movieAdapter = new MovieAdapter(getContext(), upcomingMovies);
+                }
                 recyclerView.setAdapter(movieAdapter);
             }
 
             @Override
-            public void onFailure(Call<Feed> call, Throwable t) {
+            public void onFailure(Call<FeedMovies> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
             }
         });
+
+        //Ovim se omogucava  "Infinite scroll" odnosno kada korisnik dodje do poslednjeg itema da se ucita jos itema
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = gridLayoutManager.getChildCount();
+                totalItemCount = gridLayoutManager.getItemCount();
+                pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
+
+                if (dy > 0) {
+                    if (isLoading) {
+                        if (totalItemCount > previousTotal) {
+                            isLoading = false;
+                            previousTotal = totalItemCount;
+                        }
+                    }
+
+                    if (!isLoading && (totalItemCount - visibleItemCount) <= (pastVisibleItems + viewTreshold)) {
+                        pageNumber++;
+                        performPagination();
+                        isLoading = true;
+                    }
+                }
+            }
+        });
+
         return myView;
     }
 
+    private void performPagination() {
+
+        Retrofit retrofit = RetrofitUtils.getRetrofit();
+
+        Api api = retrofit.create(Api.class);
+
+        Call<FeedMovies> call = api.getMovies(Api.UPCOMING, pageNumber);
+
+        call.enqueue(new Callback<FeedMovies>() {
+            @Override
+            public void onResponse(Call<FeedMovies> call, Response<FeedMovies> response) {
+                Log.d(TAG, "onResponse: Successful");
+
+                List<Movie> popularMovies1 = response.body().getMovies();
+
+                movieAdapter.addMovies(popularMovies1);
+
+            }
+
+            @Override
+            public void onFailure(Call<FeedMovies> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
 
 }

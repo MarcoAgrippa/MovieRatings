@@ -2,6 +2,7 @@ package com.movieratings.igorgvozdic.movies.model;
 
 
 import com.google.gson.annotations.SerializedName;
+import com.movieratings.igorgvozdic.movies.Api;
 
 import java.io.Serializable;
 
@@ -56,7 +57,7 @@ public class Movie implements Serializable {
     }
 
     public String getPosterPath() {
-        return "https://image.tmdb.org/t/p/w185" + posterPath;
+        return Api.BASE_IMG_URL + Api.IMAGE_SIZE + posterPath;
     }
 
     public String getLanguage() {

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Feed {
+public class FeedMovies {
 
     @SerializedName("page")
     @Expose
@@ -22,6 +22,7 @@ public class Feed {
     @SerializedName("results")
     @Expose
     private ArrayList<Movie> movie;
+
 
     public int getPage() {
         return page;
@@ -47,7 +48,7 @@ public class Feed {
         this.total_pages = total_pages;
     }
 
-    public ArrayList<Movie> getMovie() {
+    public ArrayList<Movie> getMovies() {
         return movie;
     }
 
@@ -55,9 +56,10 @@ public class Feed {
         this.movie = movie;
     }
 
+
     @Override
     public String toString() {
-        return "Feed{" +
+        return "FeedMovies{" +
                 "page=" + page +
                 ", total_results=" + total_results +
                 ", total_pages=" + total_pages +

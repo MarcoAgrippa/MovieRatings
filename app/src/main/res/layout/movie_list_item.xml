@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/movie_poster" />
+        android:contentDescription="@string/movie_poster"
+        android:transitionName="@string/poster_transition" />
 
 
     <TextView
@@ -21,7 +22,8 @@
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/design_default_color_primary_dark"
-        android:background="@drawable/text_view_circle"/>
+        android:background="@drawable/text_view_circle"
+        android:transitionName="@string/average_rating_transition" />
 
 
 </RelativeLayout>

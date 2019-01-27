@@ -17,6 +17,7 @@
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="@string/poster_transition"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
@@ -65,6 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtVoteCount"
         app:layout_constraintTop_toBottomOf="@+id/txtAve"
+        android:transitionName="@string/average_rating_transition"
         tools:text="7.6" />
 
     <TextView

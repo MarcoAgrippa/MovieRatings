@@ -91,4 +91,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
+
+    public void addMovies(List<Movie> movies) {
+
+        for (Movie movie : movies) {
+            this.movies.add(movie);
+        }
+        notifyDataSetChanged();
+    }
 }

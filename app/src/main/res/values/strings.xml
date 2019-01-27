@@ -48,5 +48,7 @@
     <string name="upcoming_movie_toolbar">Upcoming Movies</string>
     <string name="favorite_movies_toolbar">Favorite Movies</string>
     <string name="credits_toolbar">Credits</string>
+    <string name="average_rating_transition" translatable="false">average_score_share</string>
+    <string name="poster_transition" translatable="false">poster_share</string>
 
 </resources>
